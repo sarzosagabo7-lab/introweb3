@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Registro de Personas</title>
+
+    <link rel="stylesheet" href="css/estilo.css">
+
+</head>
+
+<body>
+
+
+   <header>
+
+    <img src="img/banner.webp" alt="Banner Registro de Personas" class="banner">
+
+    <h1>Registro de Personas</h1>
+
+    <p>
+        Sistema de Registro de Personas JS Company 
+    </p>
+
+</header>
+
+
+
+    <main>
+
+        <section class="contenedor">
+
+            <h2>Formulario de Registro</h2>
+
+            <form id="frmPersona">
+
+                <label>Nombres</label>
+
+                <input
+                    type="text"
+                    id="txtNombre"
+                    placeholder="Ingrese los nombres">
+
+
+
+
+                <label>Apellidos</label>
+
+                <input
+                    type="text"
+                    id="txtApellido"
+                    placeholder="Ingrese los apellidos">
+
+
+
+
+                <label>Correo Electrónico</label>
+
+                <input
+                    type="email"
+                    id="txtCorreo"
+                    placeholder="ejemplo@gmail.com">
+
+
+
+
+                <label>Edad</label>
+
+                <input
+                    type="number"
+                    id="txtEdad"
+                    placeholder="Ingrese la edad">
+
+
+
+                <button
+                    type="button"
+                    id="btnAgregar">
+
+                    Agregar Persona
+
+                </button>
+
+
+            </form>
+
+
+            <p id="mensaje"></p>
+
+
+        </section>
+
+
+
+
+
+        <section class="contenedorTabla">
+
+            <h2>Personas Registradas</h2>
+
+            <table id="tablaPersonas">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Nombres</th>
+
+                        <th>Apellidos</th>
+
+                        <th>Correo</th>
+
+                        <th>Edad</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                </tbody>
+
+
+            </table>
+
+
+        </section>
+
+
+    </main>
+
+
+
+
+
+  <footer>
+
+    <p>
+        © 2026 - Práctica HTML5 
+    </p>
+
+    <p>
+        Desarrollado por <strong>Joham Sarzosa Company</strong>
+    </p>
+
+</footer>
+
+
+
+
+<script>
+
+const boton = document.getElementById("btnAgregar");
+const txtNombre = document.getElementById("txtNombre");
+const txtApellido = document.getElementById("txtApellido");
+const txtCorreo = document.getElementById("txtCorreo");
+const txtEdad = document.getElementById("txtEdad");
+
+boton.addEventListener("click", agregarPersona);
+txtNombre.addEventListener("blur", validarNombre);
+txtApellido.addEventListener("blur", validarApellido);
+txtCorreo.addEventListener("blur", validarCorreo);
+txtEdad.addEventListener("blur", validarEdad);
+
+
+function validarNombre(){
+
+    if(txtNombre.value.trim()==""){
+
+        txtNombre.style.border="2px solid red";
+
+        txtNombre.setCustomValidity("Campo obligatorio");
+
+        txtNombre.reportValidity();
+
+    }else{
+
+        txtNombre.style.border="2px solid green";
+
+        txtNombre.setCustomValidity("");
+
+    }
+
+}
+
+
+
+function validarApellido(){
+
+    if(txtApellido.value.trim()==""){
+
+        txtApellido.style.border="2px solid red";
+
+        txtApellido.setCustomValidity("Campo obligatorio");
+
+        txtApellido.reportValidity();
+
+    }else{
+
+        txtApellido.style.border="2px solid green";
+
+        txtApellido.setCustomValidity("");
+
+    }
+
+}
+
+
+
+function validarCorreo(){
+
+    let expresion=/^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+    if(txtCorreo.value.trim()==""){
+
+        txtCorreo.style.border="2px solid red";
+
+        txtCorreo.setCustomValidity("Campo obligatorio");
+
+        txtCorreo.reportValidity();
+
+    }
+    else if(!expresion.test(txtCorreo.value)){
+
+        txtCorreo.style.border="2px solid red";
+
+        txtCorreo.setCustomValidity("Ingrese un correo válido");
+
+        txtCorreo.reportValidity();
+
+    }
+    else{
+
+        txtCorreo.style.border="2px solid green";
+
+        txtCorreo.setCustomValidity("");
+
+    }
+
+}
+
+
+
+function validarEdad(){
+
+    let edad=parseInt(txtEdad.value);
+
+    if(txtEdad.value.trim()==""){
+
+        txtEdad.style.border="2px solid red";
+
+        txtEdad.setCustomValidity("Campo obligatorio");
+
+        txtEdad.reportValidity();
+
+    }
+    else if(edad<1 || edad>120){
+
+        txtEdad.style.border="2px solid red";
+
+        txtEdad.setCustomValidity("Edad no válida");
+
+        txtEdad.reportValidity();
+
+    }
+    else{
+
+        txtEdad.style.border="2px solid green";
+
+        txtEdad.setCustomValidity("");
+
+    }
+
+}
+
+
+function agregarPersona(){
+
+    let nombres = document.getElementById("txtNombre").value.trim();
+
+    let apellidos = document.getElementById("txtApellido").value.trim();
+
+    let correo = document.getElementById("txtCorreo").value.trim();
+
+    let edad = document.getElementById("txtEdad").value.trim();
+
+    let mensaje = document.getElementById("mensaje");
+
+
+
+    mensaje.innerHTML="";
+
+
+
+    if(nombres=="" || apellidos=="" || correo=="" || edad==""){
+
+        mensaje.innerHTML="Todos los campos son obligatorios.";
+
+        mensaje.className="error";
+
+        return;
+
+    }
+
+
+
+    let expresion=/^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+
+
+    if(!expresion.test(correo)){
+
+        mensaje.innerHTML="Correo electrónico no válido.";
+
+        mensaje.className="error";
+
+        return;
+
+    }
+
+
+
+    if(edad<1 || edad>120){
+
+        mensaje.innerHTML="Edad no válida.";
+
+        mensaje.className="error";
+
+        return;
+
+    }
+
+
+
+    let tabla=document.getElementById("tablaPersonas").getElementsByTagName("tbody")[0];
+
+
+
+    let fila=tabla.insertRow();
+
+
+
+    fila.insertCell(0).innerHTML=nombres;
+
+    fila.insertCell(1).innerHTML=apellidos;
+
+    fila.insertCell(2).innerHTML=correo;
+
+    fila.insertCell(3).innerHTML=edad;
+
+
+
+    mensaje.innerHTML="Persona registrada correctamente.";
+
+    mensaje.className="correcto";
+
+
+
+    document.getElementById("frmPersona").reset();
+
+}
+
+</script>
+
+
+
+</body>
+
+</html>
