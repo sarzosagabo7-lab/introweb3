@@ -158,6 +158,8 @@
 const boton = document.getElementById("btnAgregar");
 const txtNombre = document.getElementById("txtNombre");
 const txtApellido = document.getElementById("txtApellido");
+txtNombre.addEventListener("keypress", soloLetras);
+txtApellido.addEventListener("keypress", soloLetras);
 const txtCorreo = document.getElementById("txtCorreo");
 const txtEdad = document.getElementById("txtEdad");
 
@@ -277,6 +279,20 @@ function validarEdad(){
     }
 
 }
+
+function soloLetras(e){
+
+    let tecla = e.key;
+
+    let letras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]$/;
+
+    if(!letras.test(tecla)){
+
+        e.preventDefault();
+
+    }
+
+}   
 
 
 function agregarPersona(){
